@@ -1,0 +1,82 @@
+[
+		{
+		articleAuthor: "Author 01",
+		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
+		createDate: "01.01.2019",
+		articleTitle: "Title 01",
+		articleContent: "",
+		tags: ["badge", "gamification", "respect", "test1", "test2"],
+		readCount: "626",
+		articleCategory: "Share"
+		},
+		{
+		articleAuthor: "Author 02",
+		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
+		createDate: "01.01.2019",
+		articleTitle: "Title 02",
+		articleContent: "",
+		tags: ["badge", "gamification", "respect", "test1", "test2"],
+		readCount: "626",
+		articleCategory: "Share"
+		},
+		{
+		articleAuthor: "Author 03",
+		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
+		createDate: "01.01.2019",
+		articleTitle: "Title 03",
+		articleContent: "",
+		tags: ["badge", "gamification", "respect", "test1", "test2"],
+		readCount: "626",
+		articleCategory: "Share"
+		},
+		{
+		articleAuthor: "Author 04",
+		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
+		createDate: "01.01.2019",
+		articleTitle: "Title 04",
+		articleContent: "",
+		tags: ["badge", "gamification", "respect", "test1", "test2"],
+		readCount: "626",
+		articleCategory: "Share"
+		},
+		{
+		articleAuthor: "Author 05",
+		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
+		createDate: "01.01.2019",
+		articleTitle: "Title 05",
+		articleContent: "",
+		tags: ["badge", "gamification", "respect", "test1", "test2"],
+		readCount: "626",
+		articleCategory: "Share"
+		},
+		{
+		articleAuthor: "Author 06",
+		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
+		createDate: "01.01.2019",
+		articleTitle: "Title 06",
+		articleContent: "",
+		tags: ["badge", "gamification", "respect", "test1", "test2"],
+		readCount: "626",
+		articleCategory: "Share"
+		},
+		{
+		articleAuthor: "Author 07",
+		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
+		createDate: "01.01.2019",
+		articleTitle: "Title 06",
+		articleContent: "",
+		tags: ["badge", "gamification", "respect", "test1", "test2"],
+		readCount: "626",
+		articleCategory: "Share"
+		},
+		{
+		articleAuthor: "Author 08",
+		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
+		createDate: "01.01.2019",
+		articleTitle: "Title 06",
+		articleContent: "",
+		tags: ["badge", "gamification", "respect", "test1", "test2"],
+		readCount: "626",
+		articleCategory: "Share"
+		}
+]

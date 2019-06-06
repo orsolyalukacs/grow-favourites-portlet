@@ -1,0 +1,5 @@
+Bundle-Name: GrowFavouritesPortlet
+Bundle-SymbolicName: growfavouritesportlet
+Bundle-Version: 1.0.0
+Export-Package: growfavouritesportlet.constants
+Web-ContextPath: /GrowFavouritesPortlet
