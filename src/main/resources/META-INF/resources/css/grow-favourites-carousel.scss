@@ -1,12 +1,10 @@
 .grow-favourites-carousel {
-	 
-	padding-top: 6rem !important;
-    padding-bottom: 4rem !important;
+	padding: 3rem 3rem 0 3rem;
 
 	.grow-favourites-carousel-button-back {
 		position: absolute;
-		top: 45%;
-		left: -6%;
+		top: 16rem;
+		left: 1rem;
 		z-index: 1;
 		border-color: transparent;
 		background-color: transparent;
@@ -16,8 +14,8 @@
 
 	.grow-favourites-carousel-button-next {
 		position: absolute;
-		top: 45%;
-		right: -6%;
+		top: 16rem;
+		right: 1rem;
 		z-index: 1;
 		border-color: transparent;
 		background-color: transparent;
@@ -28,4 +26,7 @@
 	.grow-favourites-slide {
 		font-size: inherit;
 	}
+}
+.grow-favourites-slider {
+	height: 30rem;
 }

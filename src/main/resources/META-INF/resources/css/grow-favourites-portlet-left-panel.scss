@@ -1,6 +1,11 @@
 .grow-favourites-porltet-left-panel {
 
-	padding-top: 6rem !important;
-    padding-bottom: 4rem !important;
+	padding-top: 3rem;
+    padding-bottom: 3rem;
+    margin-top: 3rem;
+
+    @media only screen and (max-width: 1280px) {
+        padding: 0;
+    }
 }
 

@@ -1,4 +1,4 @@
-.grow-favourites-porltet {
+.grow-favourites-portlet {
 	background-color: #F1F2F5;
 	
 	.my-favourites {
@@ -15,5 +15,8 @@
 		z-index: 5;
 	}
 
+	h2 {
+		font-weight: 600;
+		font-size: 1.125rem;
+	}
 }
-

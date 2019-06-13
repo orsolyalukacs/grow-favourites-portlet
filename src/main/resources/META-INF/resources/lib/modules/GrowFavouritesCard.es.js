@@ -39,7 +39,7 @@ class GrowFavouritesCard extends React.Component {
 				  
 					<div className="autofit-col autofit-col-expand">
 					  <div className="autofit-section text-secondary">
-						<strong>{this.props.articleAuthor}</strong>
+						<span className="grow-favourite-card-author text-truncate">{this.props.articleAuthor}</span>
 						<div className="break">{this.props.articleCreateDate}</div>
 					  </div>
 					</div>
@@ -94,11 +94,13 @@ class GrowFavouritesCard extends React.Component {
 				  </div>
 
 				  <div className="autofit-row autofit-padded">
-					<div className="autofit-col autofit-col-expand">
-					<div className="autofit-section">
-						<h2>{this.props.articleTitle}</h2>
-					  </div>
-					</div>
+						<div className="autofit-col autofit-col-expand">
+							<div className="autofit-section">
+								<a href={this.props.portalUrl + "/" + this.props.articleCategory + "/" +this.props.articleTitle.split(' ').join('+').toLowerCase()}>
+									<h2>{this.props.articleTitle}</h2>
+								</a>
+							</div>
+						</div>
 				  </div>
 				</div>
 			</div>

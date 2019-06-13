@@ -1,4 +1,15 @@
 .grow-favourite-card {
+	min-width: 21rem;
+
+	button {
+		padding: 0.4375rem 0.4375rem;
+	}
+
+	.grow-favourite-card-author{
+		font-size: 1.125rem;
+		max-width: 9.25rem;
+	}
+
 	.icon-excellence {
 		fill: #fa8072;
 	}
@@ -31,7 +42,22 @@
 		border-bottom: 6px solid white;
 	}
 
+	.card-learn:hover {
+		border-bottom: 6px solid #8c66b2;
+	}
+
+	.card-excellence:hover {
+		border-bottom: 6px solid #fa8072;
+	}
+
+	.card-share:hover {
+		border-bottom: 6px solid #66b2ff;
+	}
+
+	.card-people:hover {
+		border-bottom: 6px solid #7fffff;
+	}
 	.break {
-		line-height: 1.5;
+		line-height: 1.125rem;
 	}
 }

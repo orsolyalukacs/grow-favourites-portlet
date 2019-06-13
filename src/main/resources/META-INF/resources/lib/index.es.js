@@ -298,12 +298,12 @@ class App extends React.Component {
 			<div className="grow-favourites-porltet">
 				<div className="container">
 				  <div className="row">
-					<div className="col-sm-4">
+					<div className="col-lg-4">
 					
 						<GrowFavouritesPortletLeftPanel />
 						
 					</div>
-					<div className="col-sm-8">
+					<div className="col-lg-8">
 					
 						{isLoading && (
 							<div className="loading-indicator">
