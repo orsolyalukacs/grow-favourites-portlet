@@ -25,6 +25,7 @@ class GrowFavouritesSlide extends React.Component {
 						<GrowFavouritesCard
 							key={"growfavouritescard-"+this.props.slideIndex+"-"+key}
 							spritemap={this.props.spritemap}
+							portalUrl={this.props.portalUrl}
 							handleStarClick={this.props.handleStarClick}
 							cardData={cardData}
 							articleAuthor={cardData.articleAuthor}

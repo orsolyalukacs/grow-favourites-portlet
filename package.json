@@ -4,7 +4,9 @@
 		"prop-types": "15.7.2",
 		"pure-react-carousel": "^1.20.0",
 		"react": "15.6.2",
-		"react-dom": "15.6.2"
+		"react-dom": "15.6.2",
+		"react-resize-detector": "^4.2.0",
+		"shortid": "^2.2.14"
 	},
 	"devDependencies": {
 		"babel-cli": "^6.26.0",

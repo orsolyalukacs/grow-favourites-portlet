@@ -2,136 +2,28 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from 'axios';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
+import ReactResizeDetector from 'react-resize-detector';
+import shortid from 'shortid';
 
 import GrowFavouritesPortletLeftPanel from './modules/GrowFavouritesPortletLeftPanel.es';
 import GrowFavouritesSlide from './modules/GrowFavouritesSlide.es';
 import GrowIcon from "./modules/GrowIcon.es";
 
+//ThemeDisplay data / API config / APP config -> refactor!
 const SPRITEMAP = Liferay.ThemeDisplay.getPathThemeImages();
-const CARDS_PER_COLUMN = 3;
-const VISIBLE_SLIDES = 2;
+const PORTAL_URL = Liferay.ThemeDisplay.getCDNBaseURL();
+const GROUP_ID = Liferay.ThemeDisplay.getCompanyGroupId();
+const USER_ID = Liferay.ThemeDisplay.getUserId();
 
-const API = 'https://jsonplaceholder.typicode.com';
-const DEFAULT_QUERY = '/todos/1';
-const REMOVE_FROM_MYFAVOURITES_QUERY = '/todos/1';
-const ADD_TO_MYFAVOURITES_QUERY = '/todos/1';
+const CARDS_PER_COLUMN = 3;
+
+const API = PORTAL_URL + "/o/favourites"; 
+const GET_FAVOURITES_QUERY = API + "/getFavourites?groupId="+ GROUP_ID + "&userId=" + USER_ID;
+const REMOVE_FROM_MYFAVOURITES_QUERY = API + "/removeFavourite?groupId=" + GROUP_ID + "&userId=" + USER_ID + "&assetEntryId=";
+const GET_LIKED_QUERY = PORTAL_URL + "/o/grow-likes" + "/isAssetsLiked?assetEntryId=";
 
 const RECOMMENDATION_TOGGLE_STAR_EVENT = 'recommendationtoggleStarEvent';
 const FAVOURITES_TOGGLE_STAR_EVENT = 'favouritesToggleStarEvent';
-
-const newCardMockupData = 		{
-		articleAuthor: "New Author",
-		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
-		createDate: "01.01.2019",
-		articleTitle: "Title New",
-		articleContent: "",
-		tags: ["badge", "gamification", "respect", "test1", "test2"],
-		readCount: "626",
-		articleCategory: "Share",
-		id: "card-111",
-		star: true
-		};
-
-const mockupData = {
-	"data": [
-		{
-		articleAuthor: "Author 01",
-		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
-		createDate: "01.01.2019",
-		articleTitle: "Title 01 My Faavourite",
-		articleContent: "",
-		tags: ["badge", "gamification", "respect", "test1", "test2"],
-		readCount: "626",
-		articleCategory: "Share",
-		id: "card-001",
-		star: true
-		},
-		{
-		articleAuthor: "Author 02",
-		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
-		createDate: "01.01.2019",
-		articleTitle: "Title 02",
-		articleContent: "",
-		tags: ["badge", "gamification", "respect", "test1", "test2"],
-		readCount: "626",
-		articleCategory: "Share",
-		id: "card-002",
-		star: true
-		},
-		{
-		articleAuthor: "Author 03",
-		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
-		createDate: "01.01.2019",
-		articleTitle: "Title 03",
-		articleContent: "",
-		tags: ["badge", "gamification", "respect", "test1", "test2"],
-		readCount: "626",
-		articleCategory: "Share",
-		id: "card-003",
-		star: true
-		},
-		{
-		articleAuthor: "Author 04",
-		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
-		createDate: "01.01.2019",
-		articleTitle: "Title 04",
-		articleContent: "",
-		tags: ["badge", "gamification", "respect", "test1", "test2"],
-		readCount: "626",
-		articleCategory: "Share",
-		id: "card-004",
-		star: true
-		},
-		{
-		articleAuthor: "Author 05",
-		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
-		createDate: "01.01.2019",
-		articleTitle: "Title 05",
-		articleContent: "",
-		tags: ["badge", "gamification", "respect", "test1", "test2"],
-		readCount: "626",
-		articleCategory: "Share",
-		id: "card-005",
-		star: true
-		},
-		{
-		articleAuthor: "Author 06",
-		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
-		createDate: "01.01.2019",
-		articleTitle: "Title 06",
-		articleContent: "",
-		tags: ["badge", "gamification", "respect", "test1", "test2"],
-		readCount: "626",
-		articleCategory: "Share",
-		id: "card-006",
-		star: true
-		},
-		{
-		articleAuthor: "Author 07",
-		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
-		createDate: "01.01.2019",
-		articleTitle: "Title 07",
-		articleContent: "",
-		tags: ["badge", "gamification", "respect", "test1", "test2"],
-		readCount: "626",
-		articleCategory: "Share",
-		id: "card-007",
-		star: true
-		},
-		{
-		articleAuthor: "Author 08",
-		authorAvatar: "/o/GrowFavouritesPortlet/images/0.jpeg",
-		createDate: "01.01.2019",
-		articleTitle: "Title 08",
-		articleContent: "",
-		tags: ["badge", "gamification", "respect", "test1", "test2"],
-		readCount: "626",
-		articleCategory: "Share",
-		id: "card-008",
-		star: true
-		}
-	]
-};
 
 class App extends React.Component {
 	
@@ -142,10 +34,11 @@ class App extends React.Component {
 			data: [],
 			growFavouritesSlides: [],
 			totalSlides: 1,
-			isLoading: false,
+			isLoading: true,
 			error: null,
+			visibleSlides: 2
 		};
-		
+
 		let instance = this;
 		
 		Liferay.on(
@@ -156,17 +49,38 @@ class App extends React.Component {
 				}
 			}
 		);
-		
+
+		this.setVisibleSlides = this.setVisibleSlides.bind(this);
+    	this.onResize = this.onResize.bind(this);
 		this.organizeSlides = this.organizeSlides.bind(this);
 		this.handleStarClick = this.handleStarClick.bind(this);
 		this.fireToggleStarEvent = this.fireToggleStarEvent.bind(this);
 		this.toggleStar = this.toggleStar.bind(this);
 	}
-	
+
+	setVisibleSlides(visibleSlides) {
+        if (visibleSlides != this.state.visibleSlides) {
+            this.setState({
+                visibleSlides: visibleSlides,
+                isLoading: false
+            });
+		}
+		else {
+			this.setState({isLoading: false})
+		}
+    }
+    
+    onResize(width) {
+		this.setState({isLoading: true})
+        if (width <= 565) {
+            return this.setVisibleSlides(1);
+		}
+		else return this.setVisibleSlides(2);
+    }
+
 	organizeSlides() {
 		let i=0,index=0;
 		const growFavouritesSlides = []
-		this.setState({growFavouritesSlides: []});
 
 		while(i< this.state.data.length){						
 
@@ -175,9 +89,10 @@ class App extends React.Component {
 			});
 
 			growFavouritesSlides.push(
-				<Slide index={index} key={index}>
+				<Slide index={index} key={shortid.generate()}>
 					<GrowFavouritesSlide
 						spritemap={SPRITEMAP}
+						portalUrl={PORTAL_URL}
 						data={dataSlide}
 						slideIndex={index}
 						handleStarClick={this.handleStarClick}
@@ -188,9 +103,9 @@ class App extends React.Component {
 			i += CARDS_PER_COLUMN;
 			index++;
 		}
-		
+
 		this.setState(prevState => ({
-			growFavouritesSlides : [...prevState.growFavouritesSlides, growFavouritesSlides],
+			growFavouritesSlides : growFavouritesSlides,
 			totalSlides: index
 		}));
 	}
@@ -209,34 +124,31 @@ class App extends React.Component {
 		if (data) {
 			this.setState({ isLoading: true });
 			
-			setTimeout(() => {			
-				axios.get(API + REMOVE_FROM_MYFAVOURITES_QUERY)
-					.then(
-						response => {
-							let newData = this.state.data.filter(card => card.id !== data.id);
-							
-							this.setState({
-								data: newData,
-								isLoading: false
-							});
-							
-							this.organizeSlides();
-							
-							this.fireToggleStarEvent(data);
-						}
-					)
-					.catch(function(error) {
-						this.setState({ error: error, isLoading: false });
+			axios.delete(REMOVE_FROM_MYFAVOURITES_QUERY + data.id)
+				.then(
+					response => {
+						let newData = this.state.data.filter(card => card.id !== data.id);
+						
+						this.setState({
+							data: newData,
+							isLoading: false
+						});
+						
+						this.organizeSlides();
+						
+						this.fireToggleStarEvent(data);
+					}
+				)
+				.catch(error => {
+						this.setState({ error: error.message, isLoading: false });
 						Liferay.Util.openToast(
 							{
-								message: error,
+								message: error.message,
 								title: Liferay.Language.get('error'),
 								type: 'danger'
 							}
 						);
 					});
-				
-			}, 500);
 		}
 	}
 	
@@ -244,50 +156,78 @@ class App extends React.Component {
 		if (data) {
 			this.setState({ isLoading: true });
 		
-			setTimeout(() => {
-					if(data.star) {
-						this.setState(prevState => ({
-							data: [data].concat(prevState.data),
-							isLoading: false
-						}));
-					} else {
-						this.setState(prevState => ({
-							data: prevState.data.filter(card => card.id !== data.id),
-							isLoading: false
-						}));
-					}
-					
-					this.organizeSlides();
-				
-			}, 500);
+			if (data.star) {
+				this.setState(prevState => ({
+					data: [data].concat(prevState.data),
+					isLoading: false
+				}));
+			}
+			else {
+				this.setState(prevState => ({
+					data: prevState.data.filter(card => card.id !== data.id),
+					isLoading: false
+				}));
+			}
+			
+			this.organizeSlides();
 		}
 	}
 	
 	componentDidMount() {
 		this.setState({ isLoading: true });
 
-		setTimeout(() => {
-		axios.get(API + DEFAULT_QUERY)
-			.then(
-				response => {
-					this.setState({ 
-						data: mockupData.data,
-						isLoading: false })
-					this.organizeSlides();
+		axios.get(GET_FAVOURITES_QUERY)
+		.then(
+			response => {
+				let idArr = [];
+
+				this.setState({
+					data: response.data
+				})
+
+				if (this.state.data.length > 0) {
+					response.data.map(article => {
+						idArr.push(article.id)
+					});
+
+					let idString = idArr.join('&assetEntryId=');
+
+					axios.get(GET_LIKED_QUERY + idString + "&userId=" + USER_ID)
+					.then(response => {
+						let newData = this.state.data
+						for (var i=0; i <= response.length; i++) {
+							newData[i].id = response[i];
+						}
+						this.setState({
+							data: newData,
+							isLoading: false
+						})
+
+						this.organizeSlides();
+					})
+					.catch(error => {
+						this.setState({ error: error.message, isLoading: false });
+						Liferay.Util.openToast(
+							{
+								message: error.message,
+								title: Liferay.Language.get('error'),
+								type: 'danger'
+							}
+						);
+					});
 				}
-			)
-			.catch(function(error) {
-				this.setState({ error: error, isLoading: false });
+			}
+		)
+		.catch(error => {
+				this.setState({ error: error.message, isLoading: false });
 				Liferay.Util.openToast(
 					{
-						message: error,
+						message: error.message,
 						title: Liferay.Language.get('error'),
 						type: 'danger'
 					}
 				);
 			});
-			
-		}, 500);
 	}
 
 	render() {
@@ -295,28 +235,29 @@ class App extends React.Component {
 		const {growFavouritesSlides, isLoading, error } = this.state;
 
 		return (
-			<div className="grow-favourites-porltet">
+			<div className="grow-favourites-portlet">
 				<div className="container">
 				  <div className="row">
-					<div className="col-lg-4">
+					<div className="col-xl-4">
 					
 						<GrowFavouritesPortletLeftPanel />
 						
 					</div>
-					<div className="col-lg-8">
-					
+					<div className="col-xl-8">
+						<ReactResizeDetector handleWidth onResize={this.onResize} />
+
 						{isLoading && (
 							<div className="loading-indicator">
 								<span aria-hidden="true" className="loading-animation"></span>
 							</div>
 						)}
-					
+
 						<CarouselProvider
 							className={"grow-favourites-carousel"}
 							naturalSlideWidth={400}
 							naturalSlideHeight={520}
 							totalSlides={this.state.totalSlides}
-							visibleSlides={VISIBLE_SLIDES}
+							visibleSlides={this.state.visibleSlides}
 						>
 							<ButtonBack
 								className={"grow-favourites-carousel-button-back"}>
@@ -326,7 +267,7 @@ class App extends React.Component {
 									iconName="angle-left"
 								/>
 							</ButtonBack>
-							<Slider>
+							<Slider className={"grow-favourites-slider"}>
 								{growFavouritesSlides}
 							</Slider>		
 							<ButtonNext
