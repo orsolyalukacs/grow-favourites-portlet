@@ -240,7 +240,7 @@ class App extends React.Component {
 				  <div className="row">
 					<div className="col-xl-4">
 					
-						<GrowFavouritesPortletLeftPanel />
+						<GrowFavouritesPortletLeftPanel length={this.state.growFavouritesSlides.length}/>
 						
 					</div>
 					<div className="col-xl-8">
