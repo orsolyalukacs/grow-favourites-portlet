@@ -29,7 +29,7 @@ class GrowFavouritesCard extends React.Component {
 			  className={"grow-favourite-card card card-" + this.props.articleCategory.toLowerCase() + " mr-2 ml-2"}
 			>
 				<div className="card-body">
-				  <div className="autofit-row autofit-padded mb-2">
+				  <div className="autofit-row autofit-padded grow-favourite-card-section">
 					<div className="autofit-col">
 					  <div className="autofit-section">
 						<img className="img-fluid sticker sticker-primary sticker-xl rounded-circle"
@@ -93,7 +93,7 @@ class GrowFavouritesCard extends React.Component {
 					</div>
 				  </div>
 
-				  <div className="autofit-row autofit-padded">
+				  <div className="autofit-row autofit-padded grow-favourite-card-section">
 						<div className="autofit-col autofit-col-expand">
 							<div className="autofit-section">
 								<a href={this.props.portalUrl + "/" + this.props.articleCategory + "/" +this.props.articleTitle.split(' ').join('+').toLowerCase()}>

@@ -4,7 +4,12 @@
 	button {
 		padding: 0.4375rem 0.4375rem;
 	}
-
+	.grow-favourite-card-section {
+		min-height: 4rem;
+		a {
+			color: #09101D;
+		}
+	}
 	.grow-favourite-card-author{
 		font-size: 1.125rem;
 		max-width: 9.25rem;
