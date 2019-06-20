@@ -177,57 +177,29 @@ class App extends React.Component {
 		this.setState({ isLoading: true });
 
 		axios.get(GET_FAVOURITES_QUERY)
-		.then(
-			response => {
-				let idArr = [];
-
-				this.setState({
-					data: response.data
-				})
-
-				if (this.state.data.length > 0) {
-					response.data.map(article => {
-						idArr.push(article.id)
-					});
-
-					let idString = idArr.join('&assetEntryId=');
-
-					axios.get(GET_LIKED_QUERY + idString + "&userId=" + USER_ID)
-					.then(response => {
-						let newData = this.state.data
-						for (var i=0; i <= response.length; i++) {
-							newData[i].id = response[i];
-						}
-						this.setState({
-							data: newData,
-							isLoading: false
-						})
-
-						this.organizeSlides();
-					})
-					.catch(error => {
-						this.setState({ error: error.message, isLoading: false });
-						Liferay.Util.openToast(
-							{
-								message: error.message,
-								title: Liferay.Language.get('error'),
-								type: 'danger'
-							}
-						);
-					});
-				}
-			}
-		)
-		.catch(error => {
-				this.setState({ error: error.message, isLoading: false });
-				Liferay.Util.openToast(
-					{
-						message: error.message,
-						title: Liferay.Language.get('error'),
-						type: 'danger'
-					}
-				);
+		.then(response => {
+			let data = []
+			response.data.map(article => {
+				data.push(Object.assign({star: true}, article));
 			});
+
+			this.setState({
+				data: data,
+				isLoading: false
+			})
+
+			this.organizeSlides();
+		})
+		.catch(error => {
+			this.setState({ error: error.message, isLoading: false });
+			Liferay.Util.openToast(
+				{
+					message: error.message,
+					title: Liferay.Language.get('error'),
+					type: 'danger'
+				}
+			);
+		});
 	}
 
 	render() {
