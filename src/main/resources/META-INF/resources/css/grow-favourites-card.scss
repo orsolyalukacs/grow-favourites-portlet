@@ -1,6 +1,9 @@
 .grow-favourite-card {
 	min-width: 21rem;
 
+	.card-body {
+		padding-bottom: 0rem;
+	}
 	button {
 		padding: 0.4375rem 0.4375rem;
 	}
