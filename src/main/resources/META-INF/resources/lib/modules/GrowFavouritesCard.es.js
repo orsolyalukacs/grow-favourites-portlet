@@ -60,7 +60,7 @@ class GrowFavouritesCard extends React.Component {
 							/>
 						  )}
 					  </button>
-					  <button className="btn btn-outline-secondary btn-outline-borderless" type="button">
+					  <span className="grow-icon">
 							{(() => {
 							  switch(this.props.articleCategory) {
 								  case 'Excellence':
@@ -89,7 +89,7 @@ class GrowFavouritesCard extends React.Component {
 								  />;
 							  }
 						  })()}
-					  </button>
+					  </span>
 					</div>
 				  </div>
 
