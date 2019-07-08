@@ -106,7 +106,8 @@ class App extends React.Component {
 
 		this.setState(prevState => ({
 			growFavouritesSlides : growFavouritesSlides,
-			totalSlides: index
+			totalSlides: index,
+			isLoading: false
 		}));
 	}
 	
@@ -114,17 +115,18 @@ class App extends React.Component {
 		Liferay.fire(
 			FAVOURITES_TOGGLE_STAR_EVENT,
 			{
-				data: data
+				data: data,
+				isLoading: false
 			}
 		);
 	}
 	
-	handleStarClick(data) {
+	async handleStarClick(data) {
 		
 		if (data) {
 			this.setState({ isLoading: true });
 			
-			axios.delete(REMOVE_FROM_MYFAVOURITES_QUERY + data.id)
+			await axios.delete(REMOVE_FROM_MYFAVOURITES_QUERY + data.id)
 				.then(
 					response => {
 						let newData = this.state.data.filter(card => card.id !== data.id);
@@ -152,31 +154,29 @@ class App extends React.Component {
 		}
 	}
 	
-	toggleStar(data) {
+	async toggleStar(data) {
 		if (data) {
 			this.setState({ isLoading: true });
 		
 			if (data.star) {
 				this.setState(prevState => ({
 					data: [data].concat(prevState.data),
-					isLoading: false
 				}));
 			}
 			else {
 				this.setState(prevState => ({
 					data: prevState.data.filter(card => card.id !== data.id),
-					isLoading: false
 				}));
 			}
 			
-			this.organizeSlides();
+			await this.organizeSlides();
 		}
 	}
 	
-	componentDidMount() {
+	async componentDidMount() {
 		this.setState({ isLoading: true });
 
-		axios.get(GET_FAVOURITES_QUERY)
+		await axios.get(GET_FAVOURITES_QUERY)
 		.then(response => {
 			let data = []
 			response.data.map(article => {
