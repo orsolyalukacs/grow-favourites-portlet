@@ -1,26 +1,39 @@
 .grow-favourites-carousel {
-	padding: 3rem 3rem 0 3rem;
-	min-width: 55rem;
+	padding: 5.5rem 3rem;
+
+	@media only screen and (max-width: 768px) {
+		padding: 4rem 1.7rem 0;
+    }
+
 	.grow-favourites-carousel-button-back {
+		left: 1rem;
 		position: absolute;
-		top: 16rem;
+		top: calc(50% - 1rem);
 		left: 1rem;
 		z-index: 1;
 		border-color: transparent;
 		background-color: transparent;
 		font-size: 1.2rem;
 		color: #272833;
+
+		@media only screen and (max-width: 768px) {
+			left: 0;
+		}
 	}
 
 	.grow-favourites-carousel-button-next {
-		position: absolute;
-		top: 16rem;
 		right: 1rem;
+		position: absolute;
+		top: calc(50% - 1rem);
 		z-index: 1;
 		border-color: transparent;
 		background-color: transparent;
 		font-size: 1.2rem;
 		color: #272833;
+
+		@media only screen and(max-width: 768px) {
+			right: 0;
+		}
 	}
 	
 	.grow-favourites-slide {
@@ -28,5 +41,5 @@
 	}
 }
 .grow-favourites-slider {
-	height: 36rem;
+	height: 30rem;
 }
