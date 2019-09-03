@@ -1,9 +1,19 @@
 .grow-favourites-portlet {
+	padding: 0 4.375rem 0 5.5rem;
 	background-color: #F1F2F5;
+
+	@media only screen and (max-width: 1048px) {
+        padding: 0;
+    }
 	
 	.my-favourites {
 		font-weight: 700;
 		line-height: 2.6rem;
+		font-size: 2.25rem;
+
+		@media only screen and (max-width: 768px) {
+			font-size: 1.5rem;
+		}
 	}
 	
 	.loading-indicator {
