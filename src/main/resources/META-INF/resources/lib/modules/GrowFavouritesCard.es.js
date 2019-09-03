@@ -1,5 +1,6 @@
 import React from 'react';
 import GrowIcon from "./GrowIcon.es";
+import TextTruncate from 'react-text-truncate';
 
 class GrowFavouritesCard extends React.Component {
 	
@@ -26,7 +27,7 @@ class GrowFavouritesCard extends React.Component {
 	render() {
 		return (
 			<div
-			  className={"grow-favourite-card card card-" + this.props.articleCategory.toLowerCase() + " mr-2 ml-2"}
+			  className={"card grow-favourite-card card-" + this.props.articleCategory.toLowerCase() + " mr-2 ml-2"}
 			>
 				<div className="card-body">
 				  <div className="autofit-row autofit-padded grow-favourite-card-section">
@@ -44,7 +45,7 @@ class GrowFavouritesCard extends React.Component {
 					  </div>
 					</div>
 					<div className="autofit-section">
-					  <button className="btn btn-outline-secondary btn-outline-borderless" type="button" onClick={this._handleStarClick}>
+					  <button className="btn btn-outline-secondary btn-outline-borderless button-align" type="button" onClick={this._handleStarClick}>
 						  {this.state.star && (
 							<GrowIcon
 							  spritemap={this.props.spritemap}
@@ -60,7 +61,7 @@ class GrowFavouritesCard extends React.Component {
 							/>
 						  )}
 					  </button>
-					  <span className="grow-icon">
+					  <span className="grow-icon icon-align">
 							{(() => {
 							  switch(this.props.articleCategory) {
 								  case 'Excellence':
@@ -97,7 +98,13 @@ class GrowFavouritesCard extends React.Component {
 						<div className="autofit-col autofit-col-expand">
 							<div className="autofit-section">
 								<a href={this.props.portalUrl + "/" + this.props.articleCategory + "/" +this.props.articleTitle.split(' ').join('+').toLowerCase()}>
-									<h2>{this.props.articleTitle}</h2>
+									<span className="grow-title">
+										<TextTruncate
+										line={2}
+										truncateText="…"
+										text={this.props.articleTitle}
+										/>
+									</span>
 								</a>
 							</div>
 						</div>
