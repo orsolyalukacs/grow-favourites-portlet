@@ -98,7 +98,13 @@ class GrowFavouritesCard extends React.Component {
 						<div className="autofit-col autofit-col-expand">
 							<div className="autofit-section">
 								<a href={this.props.portalUrl + "/" + this.props.articleCategory + "/" +this.props.articleTitle.split(' ').join('+').toLowerCase()}>
-									<h2>{this.props.articleTitle}</h2>
+									<span className="grow-title">
+										<TextTruncate
+										line={2}
+										truncateText="…"
+										text={this.props.articleTitle}
+										/>
+									</span>
 								</a>
 							</div>
 						</div>
