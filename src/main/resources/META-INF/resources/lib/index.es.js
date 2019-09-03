@@ -70,9 +70,9 @@ class App extends React.Component {
 		}
     }
     
-    onResize(width) {
+    onResize() {
 		this.setState({isLoading: true})
-        if (width <= 768) {
+        if (window.innerWidth <= 818) {
             return this.setVisibleSlides(1);
 		}
 		else return this.setVisibleSlides(2);
@@ -208,22 +208,17 @@ class App extends React.Component {
 
 		return (
 			<div className="grow-favourites-portlet">
-				<div className="container">
-				  <div className="row">
-					<div className="col-xl-4">
-					
+				<div className="row">
+					<div className="col-xl-3">
 						<GrowFavouritesPortletLeftPanel length={this.state.growFavouritesSlides.length}/>
-						
 					</div>
-					<div className="col-xl-8">
+					<div className="col-xl-9">
 						<ReactResizeDetector handleWidth onResize={this.onResize} />
-
 						{isLoading && (
 							<div className="loading-indicator">
 								<span aria-hidden="true" className="loading-animation"></span>
 							</div>
 						)}
-
 						<CarouselProvider
 							className={"grow-favourites-carousel"}
 							naturalSlideWidth={400}
@@ -251,9 +246,7 @@ class App extends React.Component {
 								/>
 							</ButtonNext>
 						</CarouselProvider>
-				
 					</div>
-				  </div>
 				</div>
 			</div>
 		);
