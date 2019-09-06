@@ -22,7 +22,7 @@ const GET_FAVOURITES_QUERY = API + "/getFavourites?groupId="+ GROUP_ID + "&userI
 const REMOVE_FROM_MYFAVOURITES_QUERY = API + "/removeFavourite?groupId=" + GROUP_ID + "&userId=" + USER_ID + "&assetEntryId=";
 const GET_LIKED_QUERY = PORTAL_URL + "/o/grow-likes" + "/isAssetsLiked?assetEntryId=";
 
-const RECOMMENDATION_TOGGLE_STAR_EVENT = 'recommendationtoggleStarEvent';
+const RECOMMENDATION_TOGGLE_STAR_EVENT = 'recommendationToggleStarEvent';
 const FAVOURITES_TOGGLE_STAR_EVENT = 'favouritesToggleStarEvent';
 
 class App extends React.Component {
@@ -156,19 +156,17 @@ class App extends React.Component {
 	
 	async toggleStar(data) {
 		if (data) {
-			this.setState({ isLoading: true });
-		
+			this.setState(prevState => ({
+				isLoading: true,
+				data: prevState.data.filter(card => card.id !== data.id),
+			}));
+
 			if (data.star) {
 				this.setState(prevState => ({
 					data: [data].concat(prevState.data),
 				}));
 			}
-			else {
-				this.setState(prevState => ({
-					data: prevState.data.filter(card => card.id !== data.id),
-				}));
-			}
-			
+
 			await this.organizeSlides();
 		}
 	}
