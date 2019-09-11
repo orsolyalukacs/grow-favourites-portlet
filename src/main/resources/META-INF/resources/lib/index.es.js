@@ -20,7 +20,6 @@ const CARDS_PER_COLUMN = 3;
 const API = PORTAL_URL + "/o/favourites"; 
 const GET_FAVOURITES_QUERY = API + "/getFavourites?groupId="+ GROUP_ID + "&userId=" + USER_ID;
 const REMOVE_FROM_MYFAVOURITES_QUERY = API + "/removeFavourite?groupId=" + GROUP_ID + "&userId=" + USER_ID + "&assetEntryId=";
-const GET_LIKED_QUERY = PORTAL_URL + "/o/grow-likes" + "/isAssetsLiked?assetEntryId=";
 
 const RECOMMENDATION_TOGGLE_STAR_EVENT = 'recommendationToggleStarEvent';
 const FAVOURITES_TOGGLE_STAR_EVENT = 'favouritesToggleStarEvent';
@@ -158,7 +157,7 @@ class App extends React.Component {
 		if (data) {
 			this.setState(prevState => ({
 				isLoading: true,
-				data: prevState.data.filter(card => card.id !== data.id),
+				data: prevState.data.filter(card => card.id.toString() !== data.id.toString()),
 			}));
 
 			if (data.star) {
