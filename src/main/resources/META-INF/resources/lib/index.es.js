@@ -71,7 +71,7 @@ class App extends React.Component {
     
     onResize() {
 		this.setState({isLoading: true})
-        if (window.innerWidth <= 818) {
+        if (window.innerWidth <= 818 || this.state.data.length <= 3) {
             return this.setVisibleSlides(1);
 		}
 		else return this.setVisibleSlides(2);
@@ -108,6 +108,8 @@ class App extends React.Component {
 			totalSlides: index,
 			isLoading: false
 		}));
+
+		this.onResize();
 	}
 	
 	fireToggleStarEvent(data) {
