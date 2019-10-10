@@ -20,9 +20,8 @@ const CARDS_PER_COLUMN = 3;
 const API = PORTAL_URL + "/o/favourites"; 
 const GET_FAVOURITES_QUERY = API + "/getFavourites?groupId="+ GROUP_ID + "&userId=" + USER_ID;
 const REMOVE_FROM_MYFAVOURITES_QUERY = API + "/removeFavourite?groupId=" + GROUP_ID + "&userId=" + USER_ID + "&assetEntryId=";
-const GET_LIKED_QUERY = PORTAL_URL + "/o/grow-likes" + "/isAssetsLiked?assetEntryId=";
 
-const RECOMMENDATION_TOGGLE_STAR_EVENT = 'recommendationtoggleStarEvent';
+const RECOMMENDATION_TOGGLE_STAR_EVENT = 'recommendationToggleStarEvent';
 const FAVOURITES_TOGGLE_STAR_EVENT = 'favouritesToggleStarEvent';
 
 class App extends React.Component {
@@ -72,7 +71,7 @@ class App extends React.Component {
     
     onResize(width) {
 		this.setState({isLoading: true})
-        if (width <= 768) {
+        if (width <= 700 || this.state.data.length <= 3) {
             return this.setVisibleSlides(1);
 		}
 		else return this.setVisibleSlides(2);
@@ -109,6 +108,8 @@ class App extends React.Component {
 			totalSlides: index,
 			isLoading: false
 		}));
+
+		this.onResize();
 	}
 	
 	fireToggleStarEvent(data) {
@@ -156,19 +157,17 @@ class App extends React.Component {
 	
 	async toggleStar(data) {
 		if (data) {
-			this.setState({ isLoading: true });
-		
+			this.setState(prevState => ({
+				isLoading: true,
+				data: prevState.data.filter(card => card.id.toString() !== data.id.toString()),
+			}));
+
 			if (data.star) {
 				this.setState(prevState => ({
 					data: [data].concat(prevState.data),
 				}));
 			}
-			else {
-				this.setState(prevState => ({
-					data: prevState.data.filter(card => card.id !== data.id),
-				}));
-			}
-			
+
 			await this.organizeSlides();
 		}
 	}
@@ -208,52 +207,75 @@ class App extends React.Component {
 
 		return (
 			<div className="grow-favourites-portlet">
-				<div className="container">
-				  <div className="row">
-					<div className="col-xl-4">
-					
+				<div className="row">
+					<div className="col-xl-3">
 						<GrowFavouritesPortletLeftPanel length={this.state.growFavouritesSlides.length}/>
-						
 					</div>
-					<div className="col-xl-8">
+					<div className="col-xl-9">
 						<ReactResizeDetector handleWidth onResize={this.onResize} />
-
 						{isLoading && (
 							<div className="loading-indicator">
 								<span aria-hidden="true" className="loading-animation"></span>
 							</div>
 						)}
-
-						<CarouselProvider
-							className={"grow-favourites-carousel"}
-							naturalSlideWidth={400}
-							naturalSlideHeight={520}
-							totalSlides={this.state.totalSlides}
-							visibleSlides={this.state.visibleSlides}
-						>
-							<ButtonBack
-								className={"grow-favourites-carousel-button-back"}>
-								<GrowIcon
-									spritemap={SPRITEMAP}
-									classes="lexicon-icon inline-item"
-									iconName="angle-left"
-								/>
-							</ButtonBack>
-							<Slider className={"grow-favourites-slider"}>
-								{growFavouritesSlides}
-							</Slider>		
-							<ButtonNext
-								className={"grow-favourites-carousel-button-next"}>
-								<GrowIcon
-									spritemap={SPRITEMAP}
-									classes="lexicon-icon inline-item"
-									iconName="angle-right"
-								/>
-							</ButtonNext>
-						</CarouselProvider>
-				
+						{this.state.growFavouritesSlides.length > 0 ? 
+							(
+								<CarouselProvider
+									className={"grow-favourites-carousel"}
+									naturalSlideWidth={400}
+									naturalSlideHeight={520}
+									totalSlides={this.state.totalSlides}
+									visibleSlides={this.state.visibleSlides}
+								>
+									<ButtonBack
+										className={"grow-favourites-carousel-button-back"}>
+										<GrowIcon
+											spritemap={SPRITEMAP}
+											classes="lexicon-icon inline-item"
+											iconName="angle-left"
+										/>
+									</ButtonBack>
+									<Slider className={"grow-favourites-slider"}>
+										{growFavouritesSlides}
+									</Slider>		
+									<ButtonNext
+										className={"grow-favourites-carousel-button-next"}>
+										<GrowIcon
+											spritemap={SPRITEMAP}
+											classes="lexicon-icon inline-item"
+											iconName="angle-right"
+										/>
+									</ButtonNext>
+								</CarouselProvider>
+							) :
+							(
+								<div className="empty-state-holder">
+									<div className="alert alert-info" role="alert">
+										<span className="alert-indicator">
+											<GrowIcon
+												spritemap={SPRITEMAP}
+												classes="lexicon-icon inline-item"
+												iconName="info-circle"
+											/>
+										</span>
+										<strong className="lead">Info:</strong>
+										<span className="info-lead">To save an article as a favourite, click on the</span>
+										<GrowIcon
+											spritemap={SPRITEMAP}
+											classes="lexicon-icon inline-item"
+											iconName="star-o"
+										/>
+										<span className="info-lead">icon. When an article is saved in your favourites, the icon will be displayed as -></span>
+										<GrowIcon
+											spritemap={SPRITEMAP}
+											classes="lexicon-icon inline-item"
+											iconName="star"
+										/>
+									</div>
+								</div>
+							)
+						}
 					</div>
-				  </div>
 				</div>
 			</div>
 		);

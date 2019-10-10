@@ -1,11 +1,13 @@
 .grow-favourites-portlet-left-panel {
-
-	padding-top: 3rem;
+	padding-top: 4rem;
     padding-bottom: 3rem;
     margin-top: 3rem;
 
     @media only screen and (max-width: 1280px) {
-        padding: 0;
+        padding: 0 2rem 0 4rem;
+    }
+
+    @media only screen and (max-width: 768px) {
+        padding: 0 1.5rem;
     }
 }
-

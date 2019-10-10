@@ -1,12 +1,10 @@
 {
 	"dependencies": {
 		"axios": "^0.19.0",
-		"moment": "^2.24.0",
 		"prop-types": "15.7.2",
 		"pure-react-carousel": "^1.20.0",
 		"react": "15.6.2",
 		"react-dom": "15.6.2",
-		"react-moment": "^0.9.2",
 		"react-resize-detector": "^4.2.0",
 		"react-text-truncate": "^0.15.0",
 		"shortid": "^2.2.14"

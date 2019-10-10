@@ -44,7 +44,7 @@ class GrowFavouritesCard extends React.Component {
 						<div className="break">{this.props.articleCreateDate}</div>
 					  </div>
 					</div>
-					<div className="autofit-section">
+					<div className="autofit-section fav-icon-wrapper">
 					  <button className="btn btn-outline-secondary btn-outline-borderless button-align" type="button" onClick={this._handleStarClick}>
 						  {this.state.star && (
 							<GrowIcon

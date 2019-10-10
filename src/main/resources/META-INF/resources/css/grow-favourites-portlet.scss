@@ -1,9 +1,19 @@
 .grow-favourites-portlet {
+	padding: 0 4.375rem 0 5.5rem;
 	background-color: #F1F2F5;
+
+	@media only screen and (max-width: 1048px) {
+        padding: 0;
+    }
 	
 	.my-favourites {
 		font-weight: 700;
 		line-height: 2.6rem;
+		font-size: 2.25rem;
+
+		@media only screen and (max-width: 768px) {
+			font-size: 1.5rem;
+		}
 	}
 	
 	.loading-indicator {
@@ -18,5 +28,24 @@
 	h2 {
 		font-weight: 600;
 		font-size: 1.125rem;
+	}
+
+	.info-lead {
+		margin-right: 0.3125rem;
+		margin-left: 0.3125rem;
+	}
+
+	.empty-state-holder {
+		padding: 12rem 3rem;
+		height: 32rem;
+		
+		@media only screen and (max-width: 1248px) {
+			padding: 3rem 3rem;
+			height: 12rem;
+		}
+
+		@media only screen and (max-width: 768px) {
+			padding: 3rem 1.5rem;
+		}
 	}
 }

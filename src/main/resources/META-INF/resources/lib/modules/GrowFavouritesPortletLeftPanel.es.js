@@ -16,7 +16,7 @@ class GrowFavouritesPortletLeftPanel extends React.Component {
 				</h1>
 			
 				{}
-				<div className="text-secondary strong">{this.props.length > 0 ? 'Browse your most favourite articles' : 'In order to use this feature, save a few articles as favourite by clicking on the star button'}</div>
+				<div className="text-secondary strong">{this.props.length > 0 ? 'Browse your most favourite articles' : 'Save important articles as your favourites to easily access them on the welcome page'}</div>
 			</div>
 		)
 	}
