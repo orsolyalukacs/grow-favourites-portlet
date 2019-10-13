@@ -7,12 +7,11 @@
 
 	@media only screen and (max-width: 768px) {
 		padding: 2rem 1.7rem 0;
-    }
-
-	.grow-favourites-carousel-button-back {
+	}
+	
+	.grow-carousel-buttons {
 		position: absolute;
 		top: calc(50% - 1rem);
-		left: 1rem;
 		z-index: 1;
 		border-color: transparent;
 		background-color: transparent;
@@ -20,24 +19,27 @@
 		color: #272833;
 
 		@media only screen and (max-width: 768px) {
-			left: 0;
 			top: calc(50% - 2rem);
+		}
+	}
+
+	.grow-carousel-buttons:focus {
+		outline: none;
+	}
+
+	.grow-favourites-carousel-button-back {
+		left: 1rem;
+
+		@media only screen and (max-width: 768px) {
+			left: 0;
 		}
 	}
 
 	.grow-favourites-carousel-button-next {
 		right: 1rem;
-		position: absolute;
-		top: calc(50% - 1rem);
-		z-index: 1;
-		border-color: transparent;
-		background-color: transparent;
-		font-size: 1.2rem;
-		color: #272833;
 
 		@media only screen and(max-width: 768px) {
 			right: 0;
-			top: calc(50% - 2rem);
 		}
 	}
 	

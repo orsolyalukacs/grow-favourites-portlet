@@ -35,7 +35,9 @@ class App extends React.Component {
 			totalSlides: 1,
 			isLoading: true,
 			error: null,
-			visibleSlides: 2
+			visibleSlides: 2,
+			btnBackClasses: 'grow-carousel-buttons grow-favourites-carousel-button-back',
+			btnNextClasses: 'grow-carousel-buttons grow-favourites-carousel-button-next'
 		};
 
 		let instance = this;
@@ -69,7 +71,7 @@ class App extends React.Component {
 		}
     }
     
-    onResize(width) {
+    onResize() {
 		this.setState({isLoading: true})
         if (window.innerWidth <= 818 || this.state.data.length <= 3 || document.getElementsByClassName('grow-favourites-portlet')[0].offsetWidth <= 1048) {
             return this.setVisibleSlides(1);
@@ -202,9 +204,7 @@ class App extends React.Component {
 	}
 
 	render() {
-
-		const {growFavouritesSlides, isLoading, error } = this.state;
-
+		const {growFavouritesSlides, isLoading, error, btnBackClasses, btnNextClasses } = this.state;
 		return (
 			<div className="grow-favourites-portlet">
 				<div className="row">
@@ -228,7 +228,7 @@ class App extends React.Component {
 									visibleSlides={this.state.visibleSlides}
 								>
 									<ButtonBack
-										className={"grow-favourites-carousel-button-back"}>
+										className={btnBackClasses}>
 										<GrowIcon
 											spritemap={SPRITEMAP}
 											classes="lexicon-icon inline-item"
@@ -239,7 +239,7 @@ class App extends React.Component {
 										{growFavouritesSlides}
 									</Slider>		
 									<ButtonNext
-										className={"grow-favourites-carousel-button-next"}>
+										className={btnNextClasses}>
 										<GrowIcon
 											spritemap={SPRITEMAP}
 											classes="lexicon-icon inline-item"
