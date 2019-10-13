@@ -1,5 +1,6 @@
 .grow-favourite-card {
 	border-bottom: 6px solid white;
+	
 	.card-learn {
 		border-bottom: 6px solid white;
 		border-bottom-width: 10px !important;
@@ -83,6 +84,7 @@
 	
 	.break {
 		line-height: 1.125rem;
+		font-size: 0.875rem;
 	}
 
 	.icon-align {
@@ -94,9 +96,16 @@
 	}
 
 	.grow-title {
-		font-size: 18px;
-		font-weight: 500;
+		font-size: 1.125rem;
+		font-weight: 600;
+		line-height: 1.6875rem;
+
+		@media only screen and (max-width: 768px) {
+			font-size: 0.875rem;
+			line-height: 1.3125rem;
+		}
 	}
+
 	.fav-icon-wrapper {
 		min-width: 68px;
 	}

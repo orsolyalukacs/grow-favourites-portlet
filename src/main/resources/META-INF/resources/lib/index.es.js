@@ -71,7 +71,7 @@ class App extends React.Component {
     
     onResize(width) {
 		this.setState({isLoading: true})
-        if (width <= 700 || this.state.data.length <= 3) {
+        if (window.innerWidth <= 818 || this.state.data.length <= 3 || document.getElementsByClassName('grow-favourites-portlet')[0].offsetWidth <= 1048) {
             return this.setVisibleSlides(1);
 		}
 		else return this.setVisibleSlides(2);

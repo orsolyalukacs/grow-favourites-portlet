@@ -6,7 +6,7 @@
     }
 
 	@media only screen and (max-width: 768px) {
-		padding: 4rem 1.7rem 0;
+		padding: 2rem 1.7rem 0;
     }
 
 	.grow-favourites-carousel-button-back {
@@ -21,6 +21,7 @@
 
 		@media only screen and (max-width: 768px) {
 			left: 0;
+			top: calc(50% - 2rem);
 		}
 	}
 
@@ -36,6 +37,7 @@
 
 		@media only screen and(max-width: 768px) {
 			right: 0;
+			top: calc(50% - 2rem);
 		}
 	}
 	
