@@ -36,7 +36,9 @@ class App extends React.Component {
 			totalSlides: 1,
 			isLoading: true,
 			error: null,
-			visibleSlides: 2
+			visibleSlides: 2,
+			btnBackClasses: 'grow-carousel-buttons grow-favourites-carousel-button-back',
+			btnNextClasses: 'grow-carousel-buttons grow-favourites-carousel-button-next'
 		};
 
 		let instance = this;
@@ -203,9 +205,7 @@ class App extends React.Component {
 	}
 
 	render() {
-
-		const {growFavouritesSlides, isLoading, error } = this.state;
-
+		const {growFavouritesSlides, isLoading, error, btnBackClasses, btnNextClasses } = this.state;
 		return (
 			<div className="grow-favourites-portlet">
 				<div className="row">
@@ -219,33 +219,63 @@ class App extends React.Component {
 								<span aria-hidden="true" className="loading-animation"></span>
 							</div>
 						)}
-						<CarouselProvider
-							className={"grow-favourites-carousel"}
-							naturalSlideWidth={400}
-							naturalSlideHeight={520}
-							totalSlides={this.state.totalSlides}
-							visibleSlides={this.state.visibleSlides}
-						>
-							<ButtonBack
-								className={"grow-favourites-carousel-button-back"}>
-								<GrowIcon
-									spritemap={SPRITEMAP}
-									classes="lexicon-icon inline-item"
-									iconName="angle-left"
-								/>
-							</ButtonBack>
-							<Slider className={"grow-favourites-slider"}>
-								{growFavouritesSlides}
-							</Slider>		
-							<ButtonNext
-								className={"grow-favourites-carousel-button-next"}>
-								<GrowIcon
-									spritemap={SPRITEMAP}
-									classes="lexicon-icon inline-item"
-									iconName="angle-right"
-								/>
-							</ButtonNext>
-						</CarouselProvider>
+						{this.state.growFavouritesSlides.length > 0 ? 
+							(
+								<CarouselProvider
+									className={"grow-favourites-carousel"}
+									naturalSlideWidth={400}
+									naturalSlideHeight={520}
+									totalSlides={this.state.totalSlides}
+									visibleSlides={this.state.visibleSlides}
+								>
+									<ButtonBack
+										className={btnBackClasses}>
+										<GrowIcon
+											spritemap={SPRITEMAP}
+											classes="lexicon-icon inline-item"
+											iconName="angle-left"
+										/>
+									</ButtonBack>
+									<Slider className={"grow-favourites-slider"}>
+										{growFavouritesSlides}
+									</Slider>		
+									<ButtonNext
+										className={btnNextClasses}>
+										<GrowIcon
+											spritemap={SPRITEMAP}
+											classes="lexicon-icon inline-item"
+											iconName="angle-right"
+										/>
+									</ButtonNext>
+								</CarouselProvider>
+							) :
+							(
+								<div className="empty-state-holder">
+									<div className="alert alert-info" role="alert">
+										<span className="alert-indicator">
+											<GrowIcon
+												spritemap={SPRITEMAP}
+												classes="lexicon-icon inline-item"
+												iconName="info-circle"
+											/>
+										</span>
+										<strong className="lead">Info:</strong>
+										<span className="info-lead">To save an article as a favourite, click on the</span>
+										<GrowIcon
+											spritemap={SPRITEMAP}
+											classes="lexicon-icon inline-item"
+											iconName="star-o"
+										/>
+										<span className="info-lead">icon. When an article is saved in your favourites, the icon will be displayed as -></span>
+										<GrowIcon
+											spritemap={SPRITEMAP}
+											classes="lexicon-icon inline-item"
+											iconName="star"
+										/>
+									</div>
+								</div>
+							)
+						}
 					</div>
 				</div>
 			</div>
